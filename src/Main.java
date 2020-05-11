@@ -4,8 +4,8 @@ import java.net.Socket;
 
 public class Main {
     public static void main(String[] args) {
+        Socket cs;
         try {
-            Socket cs;
             if (args.length==0) cs = new Socket("localhost", 1234);
             else cs = new ServerSocket(1234).accept();
             new SocketHelper(cs);

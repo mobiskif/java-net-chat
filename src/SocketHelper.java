@@ -2,8 +2,11 @@ import java.io.*;
 import java.net.Socket;
 
 public class SocketHelper {
+    Socket socket;
+    boolean stop_request = false;
     public SocketHelper(Socket s) {
         System.out.println(s);
+        socket = s;
         try {
             PrintWriter net_out = new PrintWriter(s.getOutputStream(), true);
             BufferedReader net_in = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -22,15 +25,17 @@ public class SocketHelper {
             public void run() {
                 try {
                     String inputline = in.readLine();
-                    while (!inputline.startsWith(".exit")) {
+                    while (!stop_request) {
                         out.println(inputline);
-                        inputline = in.readLine();
+                        if (inputline.startsWith(".exit")) stop_request = true;
+                        else inputline = in.readLine();
                     }
-                    out.println(inputline);
-                    System.out.println("=fin=");
+                    in.close();
+                    out.close();
+                    socket.close();
                 }
                 catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         }).start();

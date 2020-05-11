@@ -1,7 +1,15 @@
-public class Main {
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
+public class Main {
     public static void main(String[] args) {
-	 if (args[0] == "s") new Thread(new SServer()).start();
-	 else new Thread(new CClient()).start();
+        try {
+            Socket cs;
+            if (args.length==0) cs = new Socket("localhost", 1234);
+            else cs = new ServerSocket(1234).accept();
+            new SocketHelper(cs);
+        }
+        catch (IOException e) {e.printStackTrace();}
     }
 }

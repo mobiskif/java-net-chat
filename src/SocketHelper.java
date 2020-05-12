@@ -32,7 +32,7 @@ public class SocketHelper {
                     else readLine = in.readLine();
                 }
                 socket.close();
-            } catch (IOException e) {  }
+            } catch (IOException e) { }
             System.out.println(msg +" поток остановлен ");
         }).start();
     }

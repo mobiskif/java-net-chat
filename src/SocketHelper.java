@@ -33,9 +33,7 @@ public class SocketHelper {
                 in.close();
                 out.close();
             }
-            catch (IOException e) {
-                //e.printStackTrace();
-            }
+            catch (IOException e) { }
         }).start();
     }
 

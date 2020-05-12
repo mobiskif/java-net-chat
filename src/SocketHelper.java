@@ -22,22 +22,19 @@ public class SocketHelper {
     }
 
     private void from_to(BufferedReader in, PrintWriter out) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String inputline = in.readLine();
-                    while (!stop_request) {
-                        out.println("\t "+inputline);
-                        if (inputline.startsWith(".exit")) stop_request = true;
-                        else inputline = in.readLine();
-                    }
-                    in.close();
-                    out.close();
+        new Thread(() -> {
+            try {
+                String readLine = in.readLine();
+                while (!stop_request) {
+                    out.println("\t "+readLine);
+                    if (readLine.startsWith(".exit")) stop_request = true;
+                    else readLine = in.readLine();
                 }
-                catch (IOException e) {
-                    //e.printStackTrace();
-                }
+                in.close();
+                out.close();
+            }
+            catch (IOException e) {
+                //e.printStackTrace();
             }
         }).start();
     }

@@ -6,6 +6,7 @@ import java.net.Socket;
 
 public class SocketHelper {
     boolean stop_request = false;
+
     public SocketHelper(Socket s) {
         System.out.println(s);
         try {
@@ -27,7 +28,7 @@ public class SocketHelper {
                 try {
                     String inputline = in.readLine();
                     while (!stop_request) {
-                        out.println(inputline);
+                        out.println("\t "+inputline);
                         if (inputline.startsWith(".exit")) stop_request = true;
                         else inputline = in.readLine();
                     }

@@ -3,7 +3,7 @@ import java.net.Socket;
 
 public class SocketHelper {
     boolean try_stop=false;
-    Socket socket;
+    final Socket socket;
 
     public SocketHelper(Socket s) {
         socket = s;
@@ -32,7 +32,7 @@ public class SocketHelper {
                     else readLine = in.readLine();
                 }
                 socket.close();
-            } catch (IOException e) { }
+            } catch (IOException ignored) { }
             System.out.println(msg +" поток остановлен ");
         }).start();
     }

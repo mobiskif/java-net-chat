@@ -3,52 +3,37 @@ import java.net.Socket;
 
 public class SocketHelper {
     boolean try_stop=false;
+    Socket socket;
 
     public SocketHelper(Socket s) {
+        socket = s;
         try {
             PrintWriter net_out = new PrintWriter(s.getOutputStream(), true);
             BufferedReader net_in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             PrintWriter std_out = new PrintWriter(System.out, true);
             BufferedReader std_in = new BufferedReader(new InputStreamReader(System.in));
 
-            from_to(std_in, net_out);
-            from_to(net_in, std_out);
+            from_to(net_in, std_out, "net_con");
+            from_to(std_in, net_out, "con_net");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace();}
     }
 
 
-    private void from_to(BufferedReader in, PrintWriter out) {
+    private void from_to(BufferedReader in, PrintWriter out, String msg) {
         new Thread(() -> {
-            //try {
-            String readLine = "";
+            String readLine;
             try {
                 readLine = in.readLine();
                 while (!try_stop) {
                     out.println("\t " + readLine);
-                    if (readLine == null) {
-                        System.out.println("======");
-                        try_stop=true;
-                    }
-                    else if (readLine.startsWith(".exit")) try_stop=true;
-                    else {
-                        try {
-                            readLine = in.readLine();
-                        } catch (IOException e) {
-                            System.err.println("Второе чтение: " + e);
-                            try_stop=true;
-                        }
-                    }
+                    if (readLine == null) try_stop=true;
+                    else if (readLine.startsWith(".exit") || readLine.contains("null")  ) try_stop=true;
+                    else readLine = in.readLine();
                 }
-                out.close();
-                in.close();
-            } catch (IOException e) {
-                System.err.println("Первое чтение: " + e);
-            }
-            //out.close();
-            //} catch (IOException e) { e.printStackTrace();}
+                socket.close();
+            } catch (IOException e) {  }
+            System.out.println(msg +" поток остановлен ");
         }).start();
     }
 

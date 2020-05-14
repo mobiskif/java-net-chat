@@ -25,15 +25,11 @@ public class Chat {
         return new Thread(() -> {
             String readLine;
             try {
-                readLine = in.readLine();
-                while (!stop) {
-                    out.println("\t " + readLine);
-                    if (readLine == null) stop =true;
-                    else if (readLine.startsWith(".exit")) stop =true;
-                    else readLine = in.readLine();
-                }
+                while ((readLine = in.readLine()) != null && !stop) out.println("\t" + readLine);
                 socket.close();
-            } catch (IOException ignored) { }
+            }
+            catch (IOException ignored) { }
+            stop=true;
             System.out.println(msg +" поток остановлен ");
         });
     }

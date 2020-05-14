@@ -3,7 +3,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Chat {
-    boolean stop =false;
+    boolean stop =false; //нужно для уведомления второго потока, при остановке первого
     final Socket socket;
 
     public Chat(Socket s) {

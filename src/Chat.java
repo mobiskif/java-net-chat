@@ -1,11 +1,12 @@
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketHelper {
-    boolean try_stop=false;
+public class Chat {
+    boolean stop =false;
     final Socket socket;
 
-    public SocketHelper(Socket s) {
+    public Chat(Socket s) {
         socket = s;
         try {
             PrintWriter net_out = new PrintWriter(s.getOutputStream(), true);
@@ -13,28 +14,35 @@ public class SocketHelper {
             PrintWriter std_out = new PrintWriter(System.out, true);
             BufferedReader std_in = new BufferedReader(new InputStreamReader(System.in));
 
-            from_to(net_in, std_out, "net_con");
-            from_to(std_in, net_out, "con_net");
+            transferThread(net_in, std_out, "from_net").start();
+            transferThread(std_in, net_out, "to_net").start();
 
         } catch (IOException e) { e.printStackTrace();}
     }
 
 
-    private void from_to(BufferedReader in, PrintWriter out, String msg) {
-        new Thread(() -> {
+    private Thread transferThread(BufferedReader in, PrintWriter out, String msg) {
+        return new Thread(() -> {
             String readLine;
             try {
                 readLine = in.readLine();
-                while (!try_stop) {
+                while (!stop) {
                     out.println("\t " + readLine);
-                    if (readLine == null) try_stop=true;
-                    else if (readLine.startsWith(".exit") || readLine.contains("null")  ) try_stop=true;
+                    if (readLine == null) stop =true;
+                    else if (readLine.startsWith(".exit")) stop =true;
                     else readLine = in.readLine();
                 }
                 socket.close();
             } catch (IOException ignored) { }
             System.out.println(msg +" поток остановлен ");
-        }).start();
+        });
     }
 
+    public static void main(String[] args) {
+        try {
+            if (args.length==0) new Chat(new ServerSocket(1234).accept());
+            else new Chat(new Socket(args[0], 1234));
+        }
+        catch (IOException e) {e.printStackTrace();}
+    }
 }

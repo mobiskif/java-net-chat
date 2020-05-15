@@ -1,0 +1,30 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Server implements Runnable {
+    public Server() {
+        super();
+    }
+
+    @Override
+    public void run() {
+        System.out.println(getClass().getSimpleName());
+        try {
+            ServerSocket serverSocket = new ServerSocket(1234);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                new AppIndex(socket);
+                //new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
+                //new Chat(socket);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        new Server().run();
+    }
+
+}

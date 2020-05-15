@@ -14,12 +14,12 @@ public class Server implements Runnable {
             ServerSocket serverSocket = new ServerSocket(1234);
             while (true) {
                 Socket socket = serverSocket.accept();
-                new AppIndex(socket);
-                //new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
-                //new Chat(socket);
+                //new AppIndex(socket, "src/index.html");
+                new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
+                //new AppChat(socket);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

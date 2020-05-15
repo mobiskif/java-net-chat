@@ -1,17 +1,20 @@
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URL;
+import java.net.URLConnection;
 
 public class AppIndex {
 
-    public AppIndex(Socket s) {
+    public AppIndex(Socket s, String s1) {
         try {
-
-            BufferedReader url_in = new BufferedReader(new InputStreamReader(new FileInputStream("src/index.html"), "UTF-8"));
+            File file = new File(s1);
+            long contentLength = file.length();
+            BufferedReader url_in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             PrintWriter net_out = new PrintWriter(s.getOutputStream(), true);
-            AppChat.transferThread(url_in, net_out, "from_index").start();
+            Client.transferHead(net_out, contentLength);
+            Client.transferThread(url_in, net_out, "from_index").start();
 
-        } catch (IOException e) { e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

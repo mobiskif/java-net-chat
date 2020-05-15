@@ -6,6 +6,7 @@ public class AppIndex {
 
     public AppIndex(Socket s, String s1) {
         try {
+
             File file = new File(s1);
             long contentLength = file.length();
             BufferedReader url_in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));

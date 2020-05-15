@@ -22,6 +22,7 @@ public class Server implements Runnable {
 
     public static void main(String[] args) {
         new Server().run();
+        //new Thread(new Server()).start();
     }
 
 }

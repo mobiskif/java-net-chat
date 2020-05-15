@@ -3,9 +3,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server implements Runnable {
-    public Server() {
-        super();
-    }
 
     @Override
     public void run() {
@@ -16,7 +13,7 @@ public class Server implements Runnable {
                 Socket socket = serverSocket.accept();
                 //new AppIndex(socket, "src/index.html");
                 new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
-                //new AppChat(socket);
+                new AppChat(socket);
             }
         } catch (IOException e) {
             //e.printStackTrace();

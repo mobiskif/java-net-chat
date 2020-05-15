@@ -19,14 +19,4 @@ public class AppChat {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        try {
-            if (args.length == 0) new AppChat(new ServerSocket(1234).accept());
-            else new AppChat(new Socket(args[0], 1234));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }

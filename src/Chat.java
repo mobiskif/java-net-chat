@@ -7,12 +7,12 @@ public class Chat {
 
     public Chat(Socket s) {
         try {
-            PrintWriter net_out = new PrintWriter(s.getOutputStream(), true);
             BufferedReader net_in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             PrintWriter std_out = new PrintWriter(System.out, true);
-            BufferedReader std_in = new BufferedReader(new InputStreamReader(System.in));
-
             transferThread(net_in, std_out, "from_net").start();
+
+            BufferedReader std_in = new BufferedReader(new InputStreamReader(System.in));
+            PrintWriter net_out = new PrintWriter(s.getOutputStream(), true);
             transferThread(std_in, net_out, "to_net").start();
 
             URL url = new URL("https://mobiskif.github.io/hh_JAVA/");

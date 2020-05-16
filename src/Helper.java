@@ -1,13 +1,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Client {
+public class Helper {
 
-    public Client(String host) {
+    public Helper(String host) {
         try {
             Socket s = new Socket(host, 1234);
             new AppChat(s);
@@ -44,12 +42,6 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        /*
-        try {
-            if (args.length == 0) new AppChat(new ServerSocket(1234).accept());
-            else new AppChat(new Socket(args[0], 1234));
-        } catch (Exception ignored) { }
-        */
-        new Client (args[0]);
+        new Helper(args[0]);
     }
 }

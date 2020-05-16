@@ -12,7 +12,7 @@ public class Server implements Runnable {
             while (true) {
                 Socket socket = serverSocket.accept();
                 //new AppIndex(socket, "src/index.html");
-                new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
+                //new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
                 new AppChat(socket);
             }
         } catch (IOException e) {
@@ -22,7 +22,6 @@ public class Server implements Runnable {
 
     public static void main(String[] args) {
         new Server().run();
-        //new Thread(new Server()).start();
     }
 
 }

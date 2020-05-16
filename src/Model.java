@@ -11,7 +11,7 @@ public class Model {
 
     void printFile() {
         try {
-            List<String> s = Files.readAllLines(Paths.get("src/index.html"), StandardCharsets.UTF_8);
+            List<String> s = Files.readAllLines(Paths.get("index.html"), StandardCharsets.UTF_8);
             for (String ss : s) System.out.println(ss);
         } catch (IOException e) { e.printStackTrace();}
     }

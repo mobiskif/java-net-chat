@@ -11,7 +11,7 @@ public class Server implements Runnable {
             ServerSocket serverSocket = new ServerSocket(1234);
             while (true) {
                 Socket socket = serverSocket.accept();
-                //new AppIndex(socket, "src/index.html");
+                //new AppIndex(socket, "index.html");
                 //new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
                 new AppChat(socket);
             }

@@ -13,10 +13,13 @@ public class Server implements Runnable {
                 Socket socket = serverSocket.accept();
                 //new AppIndex(socket, "index.html");
                 //new AppURL(socket, "https://mobiskif.github.io/hh_JAVA/");
-                new AppChat(socket);
+                //new AppChat(socket);
+                new Thread(new SocketProcessor(socket)).start();
             }
         } catch (IOException e) {
             //e.printStackTrace();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
     }
 

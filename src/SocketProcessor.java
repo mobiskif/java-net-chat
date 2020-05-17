@@ -49,9 +49,11 @@ class SocketProcessor implements Runnable {
                     type = "image/png";
                     break;
             }
-            String content = getFile(path);
-            
-            writeResponse(content, type);
+            //String content = getFile(path);
+            //writeResponse(content, type);
+            System.out.println(path + " " + type);
+            Helper.from_to(path, os);
+
         } catch (Throwable t) {
             /*do nothing*/
         } finally {

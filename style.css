@@ -9,39 +9,63 @@ body, html {
 }
 
 #headline {
-  padding: 0.8em;
-  color: white;
-  font-family: Roboto, sans-serif;
   background-image: url(background.png);
   background-size: cover;
-  border: 1px solid silver;
+  border: 0px solid silver;
+  color: white;
+  font-family: Roboto, sans-serif;
+  overflow: auto;
+}
+
+.container {
+    overflow: auto;
+    padding: .5em;
+}
+
+td {
+border: 0px solid silver;
+}
+table {
+width: 100%;
 }
 
 @media (min-width: 600px) {
+
 #headline {
-  padding: 20px 5%;
-  overflow: auto;
+  padding: 2em 5%;
+}
+
+#images img {
+float: left;
 }
 
 .container {
   margin: auto;
   max-width: 700px;
+  padding: 1em;
+    border: 0px solid green;
 }
 
-#headline #blurb {
+.container .l1 {
   float: left;
   font-size: 18px;
   width: 50%;
   box-sizing: border-box;
   font-weight: 300;
   padding: 20px;
+    border: 0px solid green;
+      overflow: auto;
+
 }
-#headline #register {
+.container .l2 {
   float:right;
   width: 50%;
   box-sizing: border-box;
   font-weight: 300;
   padding: 20px;
+    border: 0px solid green;
+      overflow: auto;
+
 }
 
 }

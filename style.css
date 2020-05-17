@@ -1,0 +1,49 @@
+
+body, html {
+    border: 0px solid red;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+
+#headline {
+  padding: 0.8em;
+  color: white;
+  font-family: Roboto, sans-serif;
+  background-image: url(background.png);
+  background-size: cover;
+  border: 1px solid silver;
+}
+
+@media (min-width: 600px) {
+#headline {
+  padding: 20px 5%;
+  overflow: auto;
+}
+
+.container {
+  margin: auto;
+  max-width: 700px;
+}
+
+#headline #blurb {
+  float: left;
+  font-size: 18px;
+  width: 50%;
+  box-sizing: border-box;
+  font-weight: 300;
+  padding: 20px;
+}
+#headline #register {
+  float:right;
+  width: 50%;
+  box-sizing: border-box;
+  font-weight: 300;
+  padding: 20px;
+}
+
+}
+
+

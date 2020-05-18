@@ -3,6 +3,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 class SocketProcessor implements Runnable {
 
@@ -56,8 +57,8 @@ class SocketProcessor implements Runnable {
                 "Server: YarServer/2009-09-09\r\n" +
                 "Content-Type: " + type + "\r\n" +
                 "Content-Length: " + length + "\r\n" +
-                //"Connection: keep-alive\r\n\r\n";
-                "Connection: closed\r\n\r\n";
+                "Connection: keep-alive\r\n\r\n";
+                //"Connection: closed\r\n\r\n";
         os.write(response.getBytes());
         os.flush();
     }
@@ -95,28 +96,18 @@ class SocketProcessor implements Runnable {
 
         writeResponse(contentLength,type);
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(os));
+        // Open the file and output streams
+        FileInputStream in = new FileInputStream(file);
+        OutputStream out = s.getOutputStream();
 
-        //os.write(result.getBytes());
-
-        int j=0;
-        try {
-            int a;
-            while ((a = in.read()) != -1) {
-                System.out.print(""+a);
-                out.write(a);
-                j=j+1;
-            }
-            System.out.println("");
-            //out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Copy the contents of the file to the output stream
+        byte[] buf = new byte[1024];
+        int count = 0;
+        while ((count = in.read(buf)) >= 0) {
+            out.write(buf, 0, count);
         }
-        os.flush();
-        System.out.println(j);
-        //if (in != null) in.close();
-        //if (out != null) out.close();
+        in.close();
+        out.close();
     }
 
     private String readInputHeaders() throws Throwable {

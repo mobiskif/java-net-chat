@@ -34,7 +34,7 @@ label {float:left; padding-right:10px;}
 .main {float:left}
 
 
-@media (min-width: 600px) {
+@media (min-width: 700px) {
 
 #headline {
   padding: 2em 5%;
